@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router";
 import Navbar from "./components/Navbar";
 import { PostProvider } from "./context/PostContext";
 import HomePage from "./pages/HomePage";
+import ProfilePage from "./pages/ProfilePage";
 import SinglePostPage from "./pages/SinglePostPage";
 import UsersPage from "./pages/UsersPage";
 
@@ -35,6 +36,11 @@ function App() {
             path="/posts/:id"
             exact
             render={(props) => <SinglePostPage {...props} />}
+          />
+          <Route
+            path="/profile"
+            exact
+            render={(props) => <ProfilePage {...props} />}
           />
           <Route path="/" exact render={(props) => <HomePage {...props} />} />
         </Switch>
