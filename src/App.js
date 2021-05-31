@@ -26,15 +26,17 @@ function App() {
       <Navbar />
       <PostProvider value={{ posts, setPosts }}>
         <Switch>
-          <Route path="/users" exact>
-            <UsersPage />
-          </Route>
-          <Route path="/posts/:id" exact>
-            <SinglePostPage />
-          </Route>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
+          <Route
+            path="/users"
+            exact
+            render={(props) => <UsersPage {...props} />}
+          />
+          <Route
+            path="/posts/:id"
+            exact
+            render={(props) => <SinglePostPage {...props} />}
+          />
+          <Route path="/" exact render={(props) => <HomePage {...props} />} />
         </Switch>
       </PostProvider>
     </div>
