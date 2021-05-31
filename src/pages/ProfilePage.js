@@ -4,7 +4,7 @@ import PostContext from "../context/PostContext";
 
 const ProfilePage = () => {
   const [user, setUser] = React.useState({});
-  const { posts } = React.useContext(PostContext);
+  const { posts, setPosts } = React.useContext(PostContext);
 
   React.useEffect(() => {
     axios
@@ -16,6 +16,18 @@ const ProfilePage = () => {
         console.log(err);
       });
   }, []);
+
+  const handleDeletePost = async (id) => {
+    const oldData = [...posts];
+    const data = oldData.filter((post) => post.id !== id);
+
+    try {
+      setPosts([...data]);
+      await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    } catch (err) {
+      setPosts([...oldData]);
+    }
+  };
 
   return (
     <div className="py-4">
@@ -59,19 +71,23 @@ const ProfilePage = () => {
             {posts
               .filter((post) => post.userId === user.id)
               .map((post) => (
-                <div className="card mb-3">
+                <div className="card mb-3" key={post.id}>
                   <div className="card-body">
                     <h5 className="card-title">{post.title}</h5>
                     <p className="card-text">{post.body}</p>
                     <div
-                      class="btn-group btn-group-sm"
+                      className="btn-group btn-group-sm"
                       role="group"
                       aria-label="Basic example"
                     >
-                      <button type="button" class="btn btn-primary">
+                      <button type="button" className="btn btn-primary">
                         Update
                       </button>
-                      <button type="button" class="btn btn-danger">
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => handleDeletePost(post.id)}
+                      >
                         Delete
                       </button>
                     </div>
