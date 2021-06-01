@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import PostCard from "../components/PostCard";
 import PostContext from "../context/PostContext";
-import UserInfoCard from "./Profile/UserInfoCard";
+import UserInfoCard from "./profile/UserInfoCard";
 
 const ProfilePage = () => {
   const [user, setUser] = React.useState({});
