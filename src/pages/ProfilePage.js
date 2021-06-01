@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import PostCard from "../components/PostCard";
 import PostContext from "../context/PostContext";
 
 const ProfilePage = () => {
@@ -26,6 +27,21 @@ const ProfilePage = () => {
       await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
     } catch (err) {
       setPosts([...oldData]);
+    }
+  };
+
+  const handlePostUpdate = async (data, id) => {
+    const oldData = [...posts];
+    const newData = oldData.map((post) =>
+      post.id === id ? { post, ...data } : post
+    );
+
+    try {
+      setPosts([...newData]);
+      await axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, data);
+    } catch (err) {
+      setPosts([...oldData]);
+      console.log(err.message);
     }
   };
 
@@ -71,28 +87,12 @@ const ProfilePage = () => {
             {posts
               .filter((post) => post.userId === user.id)
               .map((post) => (
-                <div className="card mb-3" key={post.id}>
-                  <div className="card-body">
-                    <h5 className="card-title">{post.title}</h5>
-                    <p className="card-text">{post.body}</p>
-                    <div
-                      className="btn-group btn-group-sm"
-                      role="group"
-                      aria-label="Basic example"
-                    >
-                      <button type="button" className="btn btn-primary">
-                        Update
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={() => handleDeletePost(post.id)}
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                <PostCard
+                  key={post.id}
+                  post={post}
+                  onDeletePost={handleDeletePost}
+                  onUpdate={handlePostUpdate}
+                />
               ))}
           </div>
         </div>
