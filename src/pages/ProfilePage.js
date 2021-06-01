@@ -2,9 +2,11 @@ import axios from "axios";
 import React from "react";
 import PostCard from "../components/PostCard";
 import PostContext from "../context/PostContext";
+import UserInfoCard from "./Profile/UserInfoCard";
 
 const ProfilePage = () => {
   const [user, setUser] = React.useState({});
+  const [isAddingNew, setIsAddingNew] = React.useState(false);
   const { posts, setPosts } = React.useContext(PostContext);
 
   React.useEffect(() => {
@@ -45,45 +47,88 @@ const ProfilePage = () => {
     }
   };
 
+  const hangleNewPostSubmit = async (e) => {
+    e.preventDefault();
+    const obj = {
+      title: e.target.title.value,
+      userId: 2,
+      body: e.target.body.value,
+    };
+    const oldPosts = [...posts];
+
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts", obj)
+      .then((res) => {
+        setPosts([res.data, ...posts]);
+        setIsAddingNew(false);
+      })
+      .catch((err) => {
+        setPosts([...oldPosts]);
+        console.log(err.message);
+      });
+  };
+
   return (
     <div className="py-4">
       <div className="container">
         <div className="row">
           <div className="col-12 mb-4">
             <h3>User Info</h3>
-            <div className="card">
-              <div className="card-body">
-                <h4>{user?.name}</h4>
-                <span className="mr-3">
-                  <strong>Username: </strong>
-                  {user?.username}
-                </span>
-                <span className="mr-3">
-                  <strong>Email: </strong>
-                  {user?.email}
-                </span>
-                <span className="mr-3">
-                  <strong>Phone: </strong>
-                  {user?.phone}
-                </span>
-                <span className="mr-3">
-                  <strong>Website: </strong>
-                  {user?.website}
-                </span>
-                <span className="mr-3">
-                  <strong>Company: </strong>
-                  {user.company?.name}
-                </span>
-                <span className="mr-3 d-block">
-                  <strong>Address: </strong>
-                  {user.address?.street}, {user.address?.suite},{" "}
-                  {user.address?.city}, {user.address?.zipcode}
-                </span>
-              </div>
-            </div>
+            <UserInfoCard user={user} />
           </div>
           <div className="col-12">
-            <h3>User Posts</h3>
+            <div className="d-flex align-items-center justify-content-between mb-3">
+              <h3>User Posts</h3>
+              {!isAddingNew && (
+                <button
+                  className="btn btn-primary"
+                  onClick={() => setIsAddingNew(true)}
+                >
+                  Add New Post
+                </button>
+              )}
+            </div>
+            {isAddingNew && (
+              <div className="card mb-3">
+                <div className="card-body">
+                  <h4>Add New Post</h4>
+                  <form onSubmit={hangleNewPostSubmit}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        name="title"
+                        placeholder="Title"
+                        className="form-control"
+                      />
+                    </div>
+                    <div className="form-group">
+                      <textarea
+                        name="body"
+                        placeholder="Write main article here..."
+                        className="form-control"
+                        rows={6}
+                      />
+                    </div>
+                    <div
+                      className="btn-group"
+                      role="group"
+                      aria-label="Basic example"
+                    >
+                      <button type="submit" className="btn btn-primary">
+                        Submit
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => setIsAddingNew(false)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
             {posts
               .filter((post) => post.userId === user.id)
               .map((post) => (

@@ -21,6 +21,7 @@ const PostCard = ({ post, onDeletePost, onUpdate }) => {
               <input
                 type="text"
                 name="title"
+                placeholder="Title"
                 value={postForm.title ? postForm.title : ""}
                 className="form-control"
                 onChange={handleInputChange}
@@ -29,6 +30,7 @@ const PostCard = ({ post, onDeletePost, onUpdate }) => {
             <div className="form-group">
               <textarea
                 name="body"
+                placeholder="Write main article here..."
                 value={postForm.body ? postForm.body : ""}
                 className="form-control"
                 rows={6}
@@ -49,33 +51,44 @@ const PostCard = ({ post, onDeletePost, onUpdate }) => {
           aria-label="Basic example"
         >
           {isUpdating && (
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => {
-                onUpdate(postForm, post.id);
-                setIsUpdating(false);
-              }}
-            >
-              Save
-            </button>
+            <>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  onUpdate(postForm, post.id);
+                  setIsUpdating(false);
+                }}
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => setIsUpdating(false)}
+              >
+                Cancel
+              </button>
+            </>
           )}
           {!isUpdating && (
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => setIsUpdating(true)}
-            >
-              Edit
-            </button>
+            <>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => setIsUpdating(true)}
+              >
+                Edit
+              </button>
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => onDeletePost(post.id)}
+              >
+                Delete
+              </button>
+            </>
           )}
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={() => onDeletePost(post.id)}
-          >
-            Delete
-          </button>
         </div>
       </div>
     </div>
