@@ -1,7 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Navbar = () => {
+  const location = useHistory();
+  const [path, setPath] = React.useState(location.location.pathname);
+
+  const handleActiveLink = () => {
+    console.log(location);
+    setPath(location?.location.pathname);
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
@@ -22,17 +30,26 @@ const Navbar = () => {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">
-            <li className="nav-item active">
+            <li
+              className={`nav-item ${path === "/" ? "active" : ""}`}
+              onClick={handleActiveLink}
+            >
               <Link className="nav-link" to="/">
                 Home
               </Link>
             </li>
-            <li className="nav-item">
+            <li
+              className={`nav-item ${path === "/users" ? "active" : ""}`}
+              onClick={handleActiveLink}
+            >
               <Link className="nav-link" to="/users">
                 Users
               </Link>
             </li>
-            <li className="nav-item">
+            <li
+              className={`nav-item ${path === "/profile" ? "active" : ""}`}
+              onClick={handleActiveLink}
+            >
               <Link className="nav-link" to="/profile">
                 Profile
               </Link>
