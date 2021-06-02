@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import SinglePostPage from "./pages/SinglePostPage";
 import UsersPage from "./pages/UsersPage";
+import SingleUserPage from "./pages/SingleUserPage";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -53,6 +54,11 @@ function App() {
               path="/profile"
               exact
               render={(props) => <ProfilePage {...props} />}
+            />
+            <Route
+              path="/users/:id"
+              exact
+              render={(props) => <SingleUserPage {...props} />}
             />
             <Route path="/" exact render={(props) => <HomePage {...props} />} />
           </Switch>

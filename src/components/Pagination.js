@@ -2,7 +2,7 @@ import _ from "lodash";
 import React from "react";
 import { Link } from "react-router-dom";
 
-const UserTablePagination = ({
+const Pagination = ({
   setCurrentPage,
   currentPage,
   totalItems,
@@ -56,4 +56,4 @@ const UserTablePagination = ({
   );
 };
 
-export default UserTablePagination;
+export default Pagination;

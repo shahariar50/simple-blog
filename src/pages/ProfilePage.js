@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import PostCard from "../components/PostCard";
+import PostCard from "./profile/PostCard";
 import PostContext from "../context/PostContext";
 import UserInfoCard from "./profile/UserInfoCard";
 

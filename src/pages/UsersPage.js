@@ -2,7 +2,7 @@ import React from "react";
 import UserContext from "../context/UserContext";
 import _ from "lodash";
 import UserTable from "./userpage/UserTable";
-import UserTablePagination from "./userpage/UserTablePagination";
+import UserTablePagination from "../components/Pagination";
 import {
   getUserTablesCurrentPage,
   getUserTablesItemsPerPage,
