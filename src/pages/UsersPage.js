@@ -77,52 +77,50 @@ const UsersPage = () => {
     .value();
 
   return (
-    <div className="py-4">
-      <div className="container">
-        <h3 className="pb-2">Users List</h3>
-        <div className="form-group">
-          <input
-            type="email"
-            placeholder="Search..."
-            className="form-control"
-            name="search"
-            value={searchValue ? searchValue : ""}
-            onChange={(e) => {
-              setSearchValue(e.target.value);
-              setCurrentPage(1);
-            }}
+    <div className="container">
+      <h3 className="pb-2">Users List</h3>
+      <div className="form-group">
+        <input
+          type="email"
+          placeholder="Search..."
+          className="form-control"
+          name="search"
+          value={searchValue ? searchValue : ""}
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+            setCurrentPage(1);
+          }}
+        />
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <UserTable onSortColumn={sortColumn} users={fiteredPginatedUsers} />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <UserTablePagination
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPage}
+            totalItems={sortedUsers.length}
           />
         </div>
-        <div className="row">
-          <div className="col-12">
-            <UserTable onSortColumn={sortColumn} users={fiteredPginatedUsers} />
-          </div>
-        </div>
-        <div className="row">
-          <div className="col">
-            <UserTablePagination
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPage}
-              totalItems={sortedUsers.length}
-            />
-          </div>
-          {itemsPerPage && (
-            <div className="col-sm-2">
-              <div className="form-group">
-                <select
-                  className="form-control"
-                  onChange={handleChangeTotalItemsPerPage}
-                  value={itemsPerPage}
-                >
-                  <option value={3}>3</option>
-                  <option value={5}>5</option>
-                  <option value={sortedUsers.length}>All</option>
-                </select>
-              </div>
+        {itemsPerPage && (
+          <div className="col-sm-2">
+            <div className="form-group">
+              <select
+                className="form-control"
+                onChange={handleChangeTotalItemsPerPage}
+                value={itemsPerPage}
+              >
+                <option value={3}>3</option>
+                <option value={5}>5</option>
+                <option value={sortedUsers.length}>All</option>
+              </select>
             </div>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

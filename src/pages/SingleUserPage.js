@@ -27,31 +27,29 @@ const SingleUserPage = ({ match }) => {
     .take(3)
     .value();
   return (
-    <div className="py-4">
-      <div className="container">
-        <div className="row">
-          <div className="col-12 mb-4">
-            <h3>User Info</h3>
-            <UserDetails user={user} />
+    <div className="container">
+      <div className="row">
+        <div className="col-12 mb-4">
+          <h3>User Info</h3>
+          <UserDetails user={user} />
+        </div>
+        <div className="col-12 mb-4">
+          <h3>User Posts</h3>
+          <div className="row">
+            {fiteredPginatedUsers.map((post) => (
+              <div className="col-4">
+                <UsersPost post={post} />
+              </div>
+            ))}
           </div>
-          <div className="col-12 mb-4">
-            <h3>User Posts</h3>
-            <div className="row">
-              {fiteredPginatedUsers.map((post) => (
-                <div className="col-4">
-                  <UsersPost post={post} />
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="col-12">
-            <Pagination
-              setCurrentPage={setCurrentPage}
-              currentPage={currentPage}
-              itemsPerPage={3}
-              totalItems={usersPost.length}
-            />
-          </div>
+        </div>
+        <div className="col-12">
+          <Pagination
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            itemsPerPage={3}
+            totalItems={usersPost.length}
+          />
         </div>
       </div>
     </div>

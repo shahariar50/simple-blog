@@ -28,30 +28,28 @@ const SinglePostPage = ({ match }) => {
   }, [match.params.id]);
 
   return (
-    <div className="py-4">
-      <div className="container">
-        <div className="row">
-          <div className="col-12 mb-3">
-            <h3>Post</h3>
-            <div className="card">
-              <div className="card-body">
-                <h4 className="card-title">{post.title}</h4>
-                <p>{post.body}</p>
-              </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-12 mb-3">
+          <h3>Post</h3>
+          <div className="card">
+            <div className="card-body">
+              <h4 className="card-title">{post.title}</h4>
+              <p>{post.body}</p>
             </div>
           </div>
-          <div className="col-12">
-            <h3>Comments</h3>
-            {comments.map((comment) => (
-              <div className="card mb-3" key={comment.id}>
-                <div className="card-body">
-                  <h5 className="card-title">{comment.name}</h5>
-                  <h6 className="card-subtitle text-muted">{comment.email}</h6>
-                  <p className="card-text">{comment.body}</p>
-                </div>
+        </div>
+        <div className="col-12">
+          <h3>Comments</h3>
+          {comments.map((comment) => (
+            <div className="card mb-3" key={comment.id}>
+              <div className="card-body">
+                <h5 className="card-title">{comment.name}</h5>
+                <h6 className="card-subtitle text-muted">{comment.email}</h6>
+                <p className="card-text">{comment.body}</p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

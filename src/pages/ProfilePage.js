@@ -69,77 +69,75 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="py-4">
-      <div className="container">
-        <div className="row">
-          <div className="col-12 mb-4">
-            <h3>User Info</h3>
-            <UserInfoCard user={user} />
-          </div>
-          <div className="col-12">
-            <div className="d-flex align-items-center justify-content-between mb-3">
-              <h3>User Posts</h3>
-              {!isAddingNew && (
-                <button
-                  className="btn btn-primary"
-                  onClick={() => setIsAddingNew(true)}
-                >
-                  Add New Post
-                </button>
-              )}
-            </div>
-            {isAddingNew && (
-              <div className="card mb-3">
-                <div className="card-body">
-                  <h4>Add New Post</h4>
-                  <form onSubmit={hangleNewPostSubmit}>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        name="title"
-                        placeholder="Title"
-                        className="form-control"
-                      />
-                    </div>
-                    <div className="form-group">
-                      <textarea
-                        name="body"
-                        placeholder="Write main article here..."
-                        className="form-control"
-                        rows={6}
-                      />
-                    </div>
-                    <div
-                      className="btn-group"
-                      role="group"
-                      aria-label="Basic example"
-                    >
-                      <button type="submit" className="btn btn-primary">
-                        Submit
-                      </button>
-                      <button
-                        type="button"
-                        className="btn btn-danger"
-                        onClick={() => setIsAddingNew(false)}
-                      >
-                        Cancel
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-12 mb-4">
+          <h3>User Info</h3>
+          <UserInfoCard user={user} />
+        </div>
+        <div className="col-12">
+          <div className="d-flex align-items-center justify-content-between mb-3">
+            <h3>User Posts</h3>
+            {!isAddingNew && (
+              <button
+                className="btn btn-primary"
+                onClick={() => setIsAddingNew(true)}
+              >
+                Add New Post
+              </button>
             )}
-            {posts
-              .filter((post) => post.userId === user.id)
-              .map((post) => (
-                <PostCard
-                  key={post.id}
-                  post={post}
-                  onDeletePost={handleDeletePost}
-                  onUpdate={handlePostUpdate}
-                />
-              ))}
           </div>
+          {isAddingNew && (
+            <div className="card mb-3">
+              <div className="card-body">
+                <h4>Add New Post</h4>
+                <form onSubmit={hangleNewPostSubmit}>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      name="title"
+                      placeholder="Title"
+                      className="form-control"
+                    />
+                  </div>
+                  <div className="form-group">
+                    <textarea
+                      name="body"
+                      placeholder="Write main article here..."
+                      className="form-control"
+                      rows={6}
+                    />
+                  </div>
+                  <div
+                    className="btn-group"
+                    role="group"
+                    aria-label="Basic example"
+                  >
+                    <button type="submit" className="btn btn-primary">
+                      Submit
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => setIsAddingNew(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+          {posts
+            .filter((post) => post.userId === user.id)
+            .map((post) => (
+              <PostCard
+                key={post.id}
+                post={post}
+                onDeletePost={handleDeletePost}
+                onUpdate={handlePostUpdate}
+              />
+            ))}
         </div>
       </div>
     </div>
