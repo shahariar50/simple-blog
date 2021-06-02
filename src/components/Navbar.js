@@ -5,6 +5,7 @@ const Navbar = () => {
   const location = useHistory();
   const [path, setPath] = React.useState(location.location.pathname);
 
+  // Execute and active the path state when user click any nav item.
   const handleActiveLink = () => {
     console.log(location);
     setPath(location?.location.pathname);

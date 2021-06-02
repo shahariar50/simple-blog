@@ -15,22 +15,30 @@ import {
 } from "../utils/userUtils";
 
 const UsersPage = () => {
+  // Sort Conditions
   const [sortCondition, setSortCondition] = React.useState(
     JSON.parse(getUserTablesSortCondition()) || {
       path: "name",
       order: "asc",
     }
   );
+
+  // Search value
   const [searchValue, setSearchValue] = React.useState(
     getUserTablesSearchValue() || ""
   );
+
+  // Active Paginations number
   const [currentPage, setCurrentPage] = React.useState(
     Number(getUserTablesCurrentPage()) || 1
   );
+
+  // Item per page
   const [itemsPerPage, setItemsPerPage] = React.useState(
     Number(getUserTablesItemsPerPage()) || 3
   );
 
+  // Cacheing the data when changing any
   React.useEffect(() => {
     setUserTablesSortCondition(sortCondition);
     setUserTablesSearchValue(searchValue);
@@ -38,8 +46,10 @@ const UsersPage = () => {
     setUserTablesItemsPerPage(itemsPerPage);
   }, [sortCondition, searchValue, currentPage, itemsPerPage]);
 
+  // Fetching user by context api
   const { users } = React.useContext(UserContext);
 
+  // Setting the sort condition
   const sortColumn = (path) => {
     const obj = {};
     if (sortCondition.path === path) {
@@ -51,11 +61,13 @@ const UsersPage = () => {
     setSortCondition({ ...sortCondition, ...obj });
   };
 
+  // Changing current pagination page
   const handleChangeTotalItemsPerPage = (e) => {
     setItemsPerPage(Number(e.target.value));
     setCurrentPage(1);
   };
 
+  // Search algorithm
   const searchedData = users.filter((user) =>
     `${user.name.toLowerCase().replace(/\s/g, "")}${user.email
       .toLowerCase()
@@ -65,12 +77,15 @@ const UsersPage = () => {
       searchValue.toLowerCase().replace(/\s/g, "")
     )
   );
+
+  // Sorting the users
   const sortedUsers = _.orderBy(
     searchedData,
     [sortCondition?.path],
     [sortCondition.order]
   );
 
+  // Filtering for the pagination page
   const fiteredPginatedUsers = _(sortedUsers)
     .slice((currentPage - 1) * itemsPerPage)
     .take(itemsPerPage)

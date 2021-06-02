@@ -5,6 +5,7 @@ const SinglePostPage = ({ match }) => {
   const [post, setPost] = React.useState({});
   const [comments, setComments] = React.useState([]);
 
+  // Fetching single post and its comments on initial load
   React.useEffect(() => {
     axios
       .get(`https://jsonplaceholder.typicode.com/posts/${match.params.id}`)

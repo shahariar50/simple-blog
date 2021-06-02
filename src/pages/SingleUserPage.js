@@ -11,6 +11,7 @@ const SingleUserPage = ({ match }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const { posts } = React.useContext(PostContext);
 
+  // Feching user details on initial load
   React.useEffect(() => {
     (async () => {
       const { data } = await axios.get(
@@ -20,8 +21,10 @@ const SingleUserPage = ({ match }) => {
     })();
   }, [match.params.id]);
 
+  // Filtering the current users post
   const usersPost = posts.filter((post) => post.userId === user.id);
 
+  // Filtering the post by pagination
   const fiteredPginatedUsers = _(usersPost)
     .slice((currentPage - 1) * 3)
     .take(3)

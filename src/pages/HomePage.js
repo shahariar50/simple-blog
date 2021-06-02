@@ -5,6 +5,7 @@ import PostContext from "../context/PostContext";
 const HomePage = () => {
   const [totalItemsShowing, setTotalItemsShowing] = React.useState(10);
 
+  // Getting the post items by context api
   const { posts } = React.useContext(PostContext);
 
   return (

@@ -4,10 +4,12 @@ const PostCard = ({ post, onDeletePost, onUpdate }) => {
   const [postForm, setPostForm] = React.useState({ userId: post.userId });
   const [isUpdating, setIsUpdating] = React.useState(false);
 
+  // Setting post data to post state on load
   React.useEffect(() => {
     setPostForm({ ...post });
   }, [post]);
 
+  // Updating the fields data dynamically
   const handleInputChange = (e) => {
     setPostForm({ ...postForm, [e.target.name]: e.target.value });
   };
@@ -39,6 +41,7 @@ const PostCard = ({ post, onDeletePost, onUpdate }) => {
             </div>
           </>
         )}
+        {/* This code will execute when user click the edit button */}
         {!isUpdating && (
           <>
             <h5 className="card-title">{post.title}</h5>

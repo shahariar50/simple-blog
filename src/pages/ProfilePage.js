@@ -7,8 +7,11 @@ import UserInfoCard from "./profile/UserInfoCard";
 const ProfilePage = () => {
   const [user, setUser] = React.useState({});
   const [isAddingNew, setIsAddingNew] = React.useState(false);
+
+  // Getting the post items by context api
   const { posts, setPosts } = React.useContext(PostContext);
 
+  // Getting user data in intial load
   React.useEffect(() => {
     axios
       .get("https://jsonplaceholder.typicode.com/users/2")
@@ -20,6 +23,7 @@ const ProfilePage = () => {
       });
   }, []);
 
+  // Delete clicked post
   const handleDeletePost = async (id) => {
     const oldData = [...posts];
     const data = oldData.filter((post) => post.id !== id);
@@ -32,6 +36,7 @@ const ProfilePage = () => {
     }
   };
 
+  // Update clicked post
   const handlePostUpdate = async (data, id) => {
     const oldData = [...posts];
     const newData = oldData.map((post) =>
@@ -47,6 +52,7 @@ const ProfilePage = () => {
     }
   };
 
+  // Add new post
   const hangleNewPostSubmit = async (e) => {
     e.preventDefault();
     const obj = {
