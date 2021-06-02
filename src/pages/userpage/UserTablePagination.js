@@ -19,16 +19,25 @@ const UserTablePagination = ({
             Previous
           </Link>
         </li>
-        {_.range(1, totalItems / itemsPerPage + 1).map((id) => (
-          <li
-            className={`page-item ${currentPage === id && "active"}`}
-            key={id}
-          >
+        {totalItems / itemsPerPage <= 1 && (
+          <li className="page-item active">
             <Link to="#" className="page-link">
-              {id}
+              1
             </Link>
           </li>
-        ))}
+        )}
+        {totalItems / itemsPerPage > 1 &&
+          _.range(1, totalItems / itemsPerPage + 1).map((id) => (
+            <li
+              className={`page-item ${currentPage === id && "active"}`}
+              key={id}
+              onClick={() => setCurrentPage(id)}
+            >
+              <Link to="#" className="page-link">
+                {id}
+              </Link>
+            </li>
+          ))}
         <li
           className={`page-item ${
             currentPage >= totalItems / itemsPerPage ? "disabled" : ""
