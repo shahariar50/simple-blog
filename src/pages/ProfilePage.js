@@ -1,8 +1,8 @@
 import axios from "axios";
 import React from "react";
-import PostCard from "./profile/PostCard";
+import PostCard from "./Profile/PostCard";
 import PostContext from "../context/PostContext";
-import UserInfoCard from "./profile/UserInfoCard";
+import UserInfoCard from "./Profile/UserInfoCard";
 
 const ProfilePage = () => {
   const [user, setUser] = React.useState({});
@@ -29,8 +29,8 @@ const ProfilePage = () => {
     const data = oldData.filter((post) => post.id !== id);
 
     try {
-      setPosts([...data]);
       await axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+      setPosts([...data]);
     } catch (err) {
       setPosts([...oldData]);
     }
